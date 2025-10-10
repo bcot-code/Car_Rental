@@ -1,16 +1,32 @@
-import React, {use, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Link, useLocation} from 'react-router-dom';
 import{assets} from '../assets/data'
 import NavBar from './NavBar';
 
 const Header = () => {
-    const [menuOpened,setMenuOpened] = useState(true);
+    const [menuOpened,setMenuOpened] = useState(false);
     const[active,setActive] = useState(false);
     const [showSearch ,setShowSearch] = useState(false);
     const location = useLocation();
 
 
     const isHome = location.pathname === '/';
+    // Change header bg when scroll
+    const toggleMenu = () => setMenuOpened(prev => !prev);
+    
+    useEffect(()=>{
+        const handleScroll = ()=>{
+            setActive(window.scrollY > 10)
+            if(window.scrollY > 10){
+                setMenuOpened(false);
+            }
+        }
+        window.addEventListener('scroll',handleScroll);
+        // cleanup
+        handleScroll();
+        return () => window.removeEventListener('scroll',handleScroll);
+    }, [location.pathname]);
+
   return (
     <header className={`${active ? 'bg-white shadow-sm py-2' : 'py-3'} ${!isHome && 'bg-white'} fixed top-0 w-full left-0 right-0
     z-50 transition-all duration-200`}>
@@ -28,7 +44,7 @@ const Header = () => {
                     </Link>
                 </div>
                 {/* NAVBAR */}
-                <NavBar containerStyles={menuOpened ? "flex items-start flex-col gap-y-8 fixed top-16 right-6 p-5 bg-white shadow-md w-52 ring-1 ring-slate-900/5 rounded-xl z-50" 
+                <NavBar setMenuOpened={setMenuOpened} containerStyles={menuOpened ? "flex items-start flex-col gap-y-8 fixed top-16 right-6 p-5 bg-white shadow-md w-52 ring-1 ring-slate-900/5 rounded-xl z-50" 
                 : "hidden lg:flex gap-x-5 xl:gap-x-l text-sm font-semibold p-1"}/>
                 {/* BUTTONS & SEARCHBAR & PROFILE */}
                 <div className='flex sm:flex-1 items-center sm:justify-end
@@ -54,10 +70,10 @@ const Header = () => {
                     </div>
                     {/* MENU Toggle */}
                     {menuOpened ? (
-                        <img src={assets.close} alt='' className='lg:hidden
+                        <img OnClick={toggleMenu} src={assets.close} alt='' className='lg:hidden
                         cursor-pointer text-xl'/>
                     ):(
-                        <img src={assets.menu} alt='' className='lg:hidden
+                        <img OnClick={toggleMenu} src={assets.menu} alt='' className='lg:hidden
                         cursor-pointer text-xl'/>
                     )}
                 </div>

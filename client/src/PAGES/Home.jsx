@@ -1,10 +1,19 @@
 import React from 'react'
+import Hero from '../components/Hero'
+import About from '../components/About'
+import FeaturedCars from '../components/FeaturedCars'
+import Banner from '../components/Banner'
+import Testimonial from '../components/Testimonial'
 
 const Home = () => {
   return (
-    <div className='h-screen'>
-      <div className='mt-64'>Home Page</div>
-    </div>
+    <>
+    <Hero/>
+    <About/>
+    <FeaturedCars/>
+    <Banner/>
+    <Testimonial/>
+    </>
   )
 }
 
