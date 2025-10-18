@@ -1,13 +1,39 @@
 import React, {useEffect, useState} from 'react';
-import {Link, useLocation} from 'react-router-dom';
+import {Link, useLocation, useNavigate} from 'react-router-dom';
 import{assets} from '../assets/data'
 import NavBar from './NavBar';
+import {useUser, useClerk, UserButton} from "@clerk/clerk-react";
 
 const Header = () => {
     const [menuOpened,setMenuOpened] = useState(false);
     const[active,setActive] = useState(false);
     const [showSearch ,setShowSearch] = useState(false);
     const location = useLocation();
+    const {user} = useUser();
+    const {openSignIn} = useClerk();
+    const navigate = useNavigate();
+
+    // Booking Icon
+    const BookingIcon = () =>(
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            fill="none"
+            viewBox="0 0 36 36"
+            stroke="currentColor"
+            stroke-Width="2"
+            stroke-Linecap="round"
+            stroke-Linejoin="round"
+            className='lucide lucide-scroll-text-icon lucide-scroll-text'
+        >
+            <path d="M15 12h-5"/>
+            <path d="M15 8h-5"/>
+            <path d="M19 17V5a2 2 0 0 0-2-2H4"/>
+            <path d="M8 21h12a2 2 0 0 0 2-2v-1a1 1 0 0 0-1-1H11a1 1 0 0 0-1 1v1"/>
+
+        </svg>
+    );
 
 
     const isHome = location.pathname === '/';
@@ -69,13 +95,43 @@ const Header = () => {
                         </div>
                     </div>
                     {/* MENU Toggle */}
-                    {menuOpened ? (
-                        <img OnClick={toggleMenu} src={assets.close} alt='' className='lg:hidden
+                    <>
+                        {menuOpened ? (
+                        <img onClick={toggleMenu} src={assets.close} alt='' className='lg:hidden
                         cursor-pointer text-xl'/>
                     ):(
-                        <img OnClick={toggleMenu} src={assets.menu} alt='' className='lg:hidden
+                        <img onClick={toggleMenu} src={assets.menu} alt='' className='lg:hidden
                         cursor-pointer text-xl'/>
                     )}
+                    </>
+                    {/* PROFILE */}
+                    <div className='group'>
+                        {user ? (
+                            <UserButton
+                                appearance={{
+                                    elements:{
+                                        userButtonAvatarBox: {
+                                            width: "42px",
+                                            height: "42px",
+                                        },
+                                    },
+                                }}
+                            >
+                                <UserButton.MenuItems>
+                                    <UserButton.Action
+                                        label="My Bookings"
+                                        labelIcon={<BookingIcon/>}
+                                        onClick={()=> navigate('/my-bookings')}
+                                    /> 
+                                </UserButton.MenuItems>
+                            </UserButton>
+                        ) : (
+                        <button onClick={openSignIn} className='btn-solid bg-black flexCenter gap-2 rounded-full'>
+                            Login
+                            <img src={assets.user} alt="userIcon" className='invert'/>
+                        </button>
+                        )}
+                    </div>
                 </div>
             </div>
         </div>
