@@ -4,13 +4,12 @@ import Title from './Title'
 
 const Testimonial = () => {
   return (
-    <section className=''>
+    <section className='mb-16'>
       <Title
           title1={"What People Says"}
           title2={"Don't just take our words"}
           titleStyles={"mb-10"}
-          para={`Hear what our users say about us. We're always looking for ways to improve. 
-          If you have a positive experience with us, leave a review!`}
+          para={"Hear what our users say about us. We're always looking for ways to improve. If you have a positive experience with us, leave a review!"}
       />
       {/* Testimonial-CONTAINER */}
       <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8'>
