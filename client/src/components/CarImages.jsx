@@ -8,17 +8,17 @@ const CarImages = ({ car }) => {
   }
 
   return (
-    <div className='flex flex-col gap-4'>
+    <div className='flex flex-col md:flex-row md:justify-center gap-4 md:max-h-96 shadow-lg rounded-lg p-4'>
       {/* Main Image */}
-      <div className='w-full h-64 md:h-80 lg:h-96 overflow-hidden rounded-lg'>
+      <div className='w-full md:flex-2 h-64 md:h-full lg:h-96 overflow-hidden rounded-lg'>
         <img
           src={selectedImage}
           alt={car.title}
-          className='w-full h-full object-cover'
+          className='w-full h-full object-contain'
         />
       </div>
       {/* Thumbnail Images */}
-      <div className='flex gap-2 overflow-x-auto'>
+      <div className='flex md:flex-col gap-2 overflow-x-auto md:overflow-y-auto md:max-h-96'>
         {car.images.map((image, index) => (
           <img
             key={index}
