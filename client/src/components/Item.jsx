@@ -1,17 +1,16 @@
 import React from 'react'
 import { assets } from '../assets/data'
-import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const Item = ({car}) => {
   const currency = '$'
-  const navigate = useNavigate()
 
 // colors to cycle through
 const colors =["#f5f5f5", "#f0f9fd", "#fcf6ed"];
 const bgColor = colors[parseInt(car._id?.slice(-4) || "0", 16) % colors.length]
 
   return (
-  <div onClick={()=>{navigate("/listing" +car._id); scrollTo(0,0)}}
+  <Link to={`/listing/${car._id}`} onClick={() => scrollTo(0,0)}
     className='block rounded-lg ring-1 ring-slate-900/5 p-5
     cursor-pointer'
     style={{backgroundColor: bgColor}}
@@ -54,7 +53,7 @@ const bgColor = colors[parseInt(car._id?.slice(-4) || "0", 16) % colors.length]
         </div>
         <p className='pt-2 mb-4 line-clamp-2'>{car.description}</p>
       </div>
-    </div>
+    </Link>
   )
 }
 
