@@ -103,7 +103,14 @@ const Listing = () => {
     ).sort(sortCars) 
   }, [dummyCars, selectedFilters, selectSort, searchQuery, heroDestination]);
 
+  // Handle Pagination Logic
+  const getPaginatedCars = () => {
+    const startIndex = (currPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    return filteredCars.slice(startIndex, endIndex);
+  }
 
+  const totalPages = Math.ceil(filteredCars.length / itemsPerPage)
 
   return (
     <div className='bg-primary'>
@@ -147,13 +154,30 @@ const Listing = () => {
           {/* ITEMS FILTERS -RIGHT SIDE */}
           <div className='max-sm:px-10 sm:pr-10 bg-white p-4 rounded-l-xl my-4'>
             <div className='grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8'>
-              {filteredCars.length > 0 ? (
-                filteredCars.map((car) => (
+              {getPaginatedCars().length > 0 ? (
+                getPaginatedCars().map((car) => (
                   <Item key={car} car={car}/>
                 ))
               ): (
                 <p className='capitalize'>No Cars found!</p>
               )}
+            </div>
+            {/* PAGINATION */}
+            <div className='flexCenter flex flex-wrap mt-14 mb-10 gap-3'>
+              <button disabled={currPage === 1} onClick={()=>setCurrPage(prev=>prev-1)} className={`btn-solid !py-1 
+              !px-3 ${
+                currPage === 1 && "opacity-50 cursor-not-allowed"
+              }`}>Previous</button>
+              {Array.from({length: totalPages}, (_ , index)=>(
+                <button key={index + 1} onClick={()=>setCurrPage(index + 1)} className={`btn-outline h-8 w-8 p-0
+                flexCenter ${
+                currPage === index + 1 && "btn-light"
+                }`}>{index + 1}</button>
+              ))}
+              <button disabled={currPage === totalPages} onClick={()=>setCurrPage(prev=>prev+1)} className=
+              {`btn-solid !py-1 !px-3 ${
+                currPage === totalPages && "opacity-50 cursor-not-allowed"
+                }`}>Next</button>
             </div>
           </div>
         </div>
