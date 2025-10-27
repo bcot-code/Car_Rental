@@ -83,35 +83,37 @@ const CarDetails = () => {
             </div>
             {/* Form || Check Availability */}
             <form onSubmit='' className='text-gray-500 bg-primary
-            rounded-lg px-6 py-4 flex flex-col lg-flex-row gap-4
-            max-w-md lg:max-w-full ring-1 ring-slate-900/5 
+            rounded-lg px-6 py-4 flex flex-col lg:flex-row gap-4
+            max-w-md lg:max-w-full ring-1 ring-slate-900/5
             relative mt-10'>
-              <div className='flex flex-col w-full'>
-                <div className='flex items-center gap-2'>
-                  <img src={assets.calendar} alt='calendarIcon' width={20}/>
-                  <label htmlFor='pickUpDate'>Pick Up</label>
+              <div className='flex flex-col lg:flex-row gap-4 w-full'>
+                <div className='flex flex-col w-full'>
+                  <div className='flex items-center gap-2'>
+                    <img src={assets.calendar} alt='calendarIcon' width={20}/>
+                    <label htmlFor='pickUpDate'>Pick Up</label>
+                  </div>
+                  <input type="date"
+                    onChange={(e)=> setPickUpDate(e.target.value)}
+                    min={new Date().toISOString().split("T")[0]}
+                    id='pickUpDate'
+                    className='rounded bg-white border border-gray-200
+                    px-3 py-1.5 mt-1.5 text-sm outline-none'
+                    />
                 </div>
-                <input type="date" 
-                  onChange={(e)=> setPickUpDate(e.target.value)} 
-                  min={new Date().toISOString().split("T")[0]}
-                  id='pickUpDate'
-                  className='rounded bg-white border border-gray-200
-                  px-3 py-1.5 mt-1.5 text-sm outline-none'
-                  />
-              </div>
-              <div className='flex flex-col w-full'>
-                <div className='flex items-center gap-2'>
-                  <img src={assets.calendar} alt='calendarIcon' width={20}/>
-                  <label htmlFor='dropOffDateDate'>Drop Off</label>
+                <div className='flex flex-col w-full'>
+                  <div className='flex items-center gap-2'>
+                    <img src={assets.calendar} alt='calendarIcon' width={20}/>
+                    <label htmlFor='dropOffDateDate'>Drop Off</label>
+                  </div>
+                  <input type="date"
+                    onChange={(e)=> setDropOffDate(e.target.value)}
+                    min={pickUpDate}
+                    id='dropOffDate'
+                    disabled={!pickUpDate}
+                    className='rounded bg-white border border-gray-200
+                    px-3 py-1.5 mt-1.5 text-sm outline-none'
+                    />
                 </div>
-                <input type="date" 
-                  onChange={(e)=> setDropOffDate(e.target.value)} 
-                  min={pickUpDate}
-                  id='dropOffDate'
-                  disabled={!pickUpDate}
-                  className='rounded bg-white border border-gray-200
-                  px-3 py-1.5 mt-1.5 text-sm outline-none'
-                  />
               </div>
               <button className='flexCenter gap-1 rounded-md bg-blue-500
               min-w-50 px-4 py-2 text-white hover:bg-blue-600'>
