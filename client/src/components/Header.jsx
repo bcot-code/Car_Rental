@@ -35,25 +35,6 @@ const Header = () => {
         </svg>
     );
 
-    // Owner Icon
-    const OwnerIcon = () =>(
-        <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="lucide lucide-house"
-        >
-            <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/>
-            <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-        </svg>
-    );
-
 
     const isHome = location.pathname === '/';
     // Change header bg when scroll
@@ -92,8 +73,11 @@ const Header = () => {
                 <NavBar setMenuOpened={setMenuOpened} containerStyles={menuOpened ? "flex items-start flex-col gap-y-8 fixed top-16 right-6 p-5 bg-white shadow-md w-52 ring-1 ring-slate-900/5 rounded-xl z-50" 
                 : "hidden lg:flex gap-x-5 xl:gap-x-l text-sm font-semibold p-1"}/>
                 {/* BUTTONS & SEARCHBAR & PROFILE */}
+                
                 <div className='flex sm:flex-1 items-center sm:justify-end
                 gap-x-4 sm:gap-x-8'>
+                 <Link to="/owner" className='text-sm font-semibold px-4 py-2
+                            rounded-md hover:bg-gray-100 transition'>Owner Dashboard</Link>
                     {/* SEARCHBAR */}
                     <div className='relative hidden xl:flex items-center'>
                         {/* INPUT */}
@@ -121,6 +105,7 @@ const Header = () => {
                     ):(
                         <img onClick={toggleMenu} src={assets.menu} alt='' className='lg:hidden
                         cursor-pointer text-xl'/>
+                        
                     )}
                     </>
                     {/* PROFILE */}
@@ -136,6 +121,7 @@ const Header = () => {
                                     },
                                 }}
                             >
+                            
                                 <UserButton.MenuItems>
                                     <UserButton.Action
                                         label="My Bookings"
