@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import { assets, dummyBookingsData } from '../assets/data';
 import { useUser } from '@clerk/clerk-react';
+import Title from '../components/Title';
 
 const MYBookings = () => {
   const [bookings,setBookings] = useState([]);
@@ -21,6 +22,11 @@ const MYBookings = () => {
   return (
     <div className='bg-primary py-16 pt-28'>
       <div className='max-padd-container'>
+      <Title
+        title2={"My Bookings"}
+        title2Styles={"text-4xl"}
+        titleStyles={"mb-10"}
+      />
         {bookings?.map((booking)=>(
           <div key={booking._id} className='bg-white ring-1
           ring-slate-900/5 p-2 pr-4 mt-3 rounded.lg'>
@@ -72,13 +78,15 @@ const MYBookings = () => {
                 <div className='flex items-center gap-x-2'>
                   <h5>Payment:</h5>
                   <div className='flex items-center gap-1'>
-                    <span className={`min-w-2.5 rounded-full ${
+                    <span className={`w-3 h-3 min-w-2.5 rounded-full ${
                     booking.isPaid ? "bg-green-500" : "bg-yellow-500"}`}/>
                     <p>{booking.isPaid ? "Paid" : "Unpaid"}</p>
                   </div>
                 </div>
                 {!booking.isPaid && (
-                  <button className='bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 text-sm font-semibold rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-200'>Pay Now</button>
+                  <button className='bg-blue-500 hover:bg-blue-600 text-white 
+                  py-2 px-4 text-sm font-semibold rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 
+                  transition-all duration-200'>Pay Now</button>
                 )}
               </div>
             </div>
