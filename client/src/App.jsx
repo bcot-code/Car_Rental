@@ -8,14 +8,21 @@ import MYBookings from './PAGES/MYBookings'
 import Home from './PAGES/Home'
 import Blog from './PAGES/Blog'
 import Footer from './components/Footer'
+import Sidebar from './components/owner/Sidebar'
+import Dashboard from './PAGES/owner/Dashboard'
+import AddCar from './PAGES/owner/AddCar'
+import ListCar from './PAGES/owner/ListCar'
 
 
 
 
 const App = () => {
+  const location = useLocation();
+  const isOwnerPath = location.pathname.includes('owner')
+
   return (
     <main>
-      <Header/>
+      {!isOwnerPath && <Header/>}
       <Routes>
         <Route path='/' element={<Home/>}/>
         <Route path='/listing/:id' element={<CarDetails/>}/>
@@ -23,8 +30,15 @@ const App = () => {
         <Route path='/blog' element={<Blog/>}/>
         <Route path='/contact' element={<Contact/>}/>
         <Route path='/my-bookings' element={<MYBookings/>}/>
+
+        {/* OWNER routes */}
+        <Route path='/owner' element={<Sidebar/>}>
+          <Route index element={<Dashboard/>}/>
+          <Route path='add-car' element={<AddCar/>}/>
+          <Route path='list-car' element={<ListCar/>}/>
+        </Route>
       </Routes>
-      <Footer/>
+     {!isOwnerPath && <Footer/>}
     </main>
   )
 }
